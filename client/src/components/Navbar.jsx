@@ -1,15 +1,19 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <nav className="bg-gray-900  ">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
+        <Link
+          to="/"
+          className="flex items-center space-x-3 rtl:space-x-reverse"
+        >
           <span className="self-center text-2xl font-semibold whitespace-nowrap text-white ">
             Vendor Management
           </span>
-        </a>
+        </Link>
         <div className=" flex items-center ">
           <div className="relative">
             <button
@@ -27,14 +31,17 @@ const Navbar = () => {
             >
               <ul className="py-2">
                 <li>
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700">
+                  <Link
+                    to="/login"
+                    className="block px-4 py-2 text-sm text-gray-700"
+                  >
                     Login
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700">
+                  <button className="block px-4 py-2 text-sm text-gray-700">
                     Logout
-                  </a>
+                  </button>
                 </li>
               </ul>
             </div>
