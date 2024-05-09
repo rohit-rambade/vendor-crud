@@ -1,6 +1,23 @@
 import React from "react";
+import { auth, googleProvider } from "../config/firebase";
+import { signInWithPopup } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+
+      console.log(result);
+      if (result.user.accessToken) {
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="flex mt-16">
       <div className="m-auto p-5 ">
@@ -12,7 +29,10 @@ const Login = () => {
               </h2>
             </div>
             <div className="">
-              <button className="px-4 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700  hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900  hover:shadow transition duration-150">
+              <button
+                className="px-4 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700  hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900  hover:shadow transition duration-150"
+                onClick={handleGoogleLogin}
+              >
                 <img
                   className="w-6 h-6"
                   src="https://www.svgrepo.com/show/475656/google-color.svg"
