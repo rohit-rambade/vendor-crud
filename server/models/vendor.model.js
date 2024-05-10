@@ -6,9 +6,9 @@ const vendorSchema = new Schema({
   bankName: { type: String, required: true },
   addressLine1: { type: String, required: true },
   addressLine2: { type: String, required: true },
-  city: { type: String, required: true },
-  country: { type: String, required: true },
-  zipCode: { type: String, required: true },
+  city: String,
+  country: String,
+  zipCode: String,
 });
 
 const Vendor = mongoose.model("Vendor", vendorSchema);

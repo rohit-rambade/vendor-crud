@@ -1,5 +1,7 @@
+import { validationResult } from "express-validator";
 import Vendor from "../models/vendor.model.js";
 
+// Controller for creating a new vendor
 const createVendor = async (req, res) => {
   const {
     vendorName,
@@ -13,6 +15,11 @@ const createVendor = async (req, res) => {
   } = req.body;
 
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
     const vendor = new Vendor({
       vendorName,
       bankAccountNo,
@@ -30,6 +37,7 @@ const createVendor = async (req, res) => {
   }
 };
 
+// Controller for getting paginated list of vendors
 const getVendors = async (req, res) => {
   try {
     const { page = 1, limit = 10 } = req.query;
@@ -48,9 +56,14 @@ const getVendors = async (req, res) => {
   }
 };
 
+// Controller for updating a vendor
 const updateVendor = async (req, res) => {
   try {
     const { id } = req.params;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
     const updatedVendor = await Vendor.findByIdAndUpdate(id, req.body, {
       new: true,
     });
@@ -60,6 +73,7 @@ const updateVendor = async (req, res) => {
   }
 };
 
+// Controller for deleting a vendor
 const deleteVendor = async (req, res) => {
   try {
     const { id } = req.params;
