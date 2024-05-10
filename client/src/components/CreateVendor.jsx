@@ -1,6 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+
+const initialState = {
+  vendorName: "",
+  bankAccountNo: "",
+  bankName: "",
+  addressLine1: "",
+  addressLine2: "",
+  city: "",
+  country: "",
+  zipCode: "",
+};
 
 const CreateVendor = ({ handleCreateVendorModal, isOpen }) => {
+  const [vendorData, setVendorData] = useState(initialState);
+
+  const handleChange = (e) => {
+    setVendorData({
+      ...vendorData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleCreateVendor = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post("/api/vendors/", vendorData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (data.success) {
+        setVendorData(initialState);
+        handleCreateVendorModal();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div
       className={`${
@@ -37,20 +74,22 @@ const CreateVendor = ({ handleCreateVendorModal, isOpen }) => {
             </button>
           </div>
 
-          <form className="p-4 md:p-5">
+          <form className="p-4 md:p-5" onSubmit={handleCreateVendor}>
             <div className="grid gap-4 mb-4 grid-cols-1 md:grid-cols-3">
               <div>
                 <div className="">
                   <label
-                    for="name"
+                    for="vendorName"
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
                     Vendor Name
                   </label>
                   <input
                     type="text"
-                    name="name"
-                    id="name"
+                    name="vendorName"
+                    id="vendorName"
+                    value={vendorData.vendorName}
+                    onChange={handleChange}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5      "
                     placeholder="Enter Vendor Name"
                     required
@@ -58,15 +97,17 @@ const CreateVendor = ({ handleCreateVendorModal, isOpen }) => {
                 </div>
                 <div className="">
                   <label
-                    for="bankAcNo"
+                    for="bankAccountNo"
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
                     Bank Account Number
                   </label>
                   <input
                     type="text"
-                    name="bankAcNo"
-                    id="bankAcNo"
+                    name="bankAccountNo"
+                    id="bankAccountNo"
+                    value={vendorData.bankAccountNo}
+                    onChange={handleChange}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5      "
                     placeholder="Enter Account Number"
                     required
@@ -83,6 +124,8 @@ const CreateVendor = ({ handleCreateVendorModal, isOpen }) => {
                     type="text"
                     name="bankName"
                     id="bankName"
+                    value={vendorData.bankName}
+                    onChange={handleChange}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5      "
                     placeholder="Enter Bank Name"
                     required=""
@@ -92,28 +135,34 @@ const CreateVendor = ({ handleCreateVendorModal, isOpen }) => {
               <div>
                 <div className="">
                   <label
-                    for="addressLineOne"
+                    for="addressLine1"
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
                     Address Line 1
                   </label>
                   <textarea
-                    id="addressLineOne"
+                    id="addressLine1"
+                    name="addressLine1"
                     rows="4"
+                    value={vendorData.addressLine1}
+                    onChange={handleChange}
                     className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500      "
                     placeholder="Address 1"
                   ></textarea>
                 </div>
                 <div className="">
                   <label
-                    for="addressLineTwo"
+                    for="addressLine2"
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
                     Address Line 2
                   </label>
                   <textarea
-                    id="addressLineTwo"
+                    id="addressLine2"
+                    name="addressLine2"
                     rows="4"
+                    value={vendorData.addressLine2}
+                    onChange={handleChange}
                     className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500      "
                     placeholder="Address 2"
                   ></textarea>
@@ -132,6 +181,8 @@ const CreateVendor = ({ handleCreateVendorModal, isOpen }) => {
                       type="text"
                       name="city"
                       id="city"
+                      value={vendorData.city}
+                      onChange={handleChange}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5      "
                       placeholder="Enter City Name"
                       required=""
@@ -148,6 +199,8 @@ const CreateVendor = ({ handleCreateVendorModal, isOpen }) => {
                       type="text"
                       name="country"
                       id="country"
+                      value={vendorData.country}
+                      onChange={handleChange}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5      "
                       placeholder="Enter Country Name"
                       required=""
@@ -155,15 +208,17 @@ const CreateVendor = ({ handleCreateVendorModal, isOpen }) => {
                   </div>
                   <div className="">
                     <label
-                      for="zipcode"
+                      for="zipCode"
                       className="block mb-2 text-sm font-medium text-gray-900 "
                     >
                       Zipcode
                     </label>
                     <input
                       type="text"
-                      name="zipcode"
-                      id="zipcode"
+                      name="zipCode"
+                      id="zipCode"
+                      value={vendorData.zipCode}
+                      onChange={handleChange}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5      "
                       placeholder="Enter Zipcode"
                       required=""

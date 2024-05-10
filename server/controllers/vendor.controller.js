@@ -31,7 +31,10 @@ const createVendor = async (req, res) => {
       zipCode,
     });
     await vendor.save();
-    res.status(201).json(vendor);
+    res.status(201).json({
+      success: true,
+      message: "Vendor Created",
+    });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
@@ -78,7 +81,7 @@ const deleteVendor = async (req, res) => {
   try {
     const { id } = req.params;
     await Vendor.findByIdAndDelete(id);
-    res.json({ message: "Vendor deleted successfully" });
+    res.json({ success: true, message: "Vendor deleted successfully" });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
