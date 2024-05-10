@@ -5,16 +5,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { setIsAuthenticated, setLoginData } from "../slices/authSlice";
 
 import { FaRegCircleUser } from "react-icons/fa6";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const { isAuthenticated, user } = useSelector((state) => state.auth);
-  console.log(user);
+
   const handleLogout = () => {
     dispatch(setLoginData(null));
     dispatch(setIsAuthenticated(false));
     window.location.reload();
+    toast.success("Logout Successful");
   };
 
   return (

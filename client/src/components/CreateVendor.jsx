@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+import { toast } from "react-toastify";
+
 const initialState = {
   vendorName: "",
   bankAccountNo: "",
@@ -25,17 +27,22 @@ const CreateVendor = ({ handleCreateVendorModal, isOpen }) => {
   const handleCreateVendor = async (e) => {
     e.preventDefault();
     try {
+      toast.loading("Creating Vendor");
       const { data } = await axios.post("/api/vendors/", vendorData, {
         headers: {
           "Content-Type": "application/json",
         },
       });
       if (data.success) {
+        toast.dismiss();
+        toast.success(data.message);
         setVendorData(initialState);
         handleCreateVendorModal();
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error:", error);
+      toast.dismiss();
+      toast.error(error.response.data.message || "An error occurred.");
     }
   };
   return (

@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 import CreateVendor from "../components/CreateVendor";
 import VendorList from "../components/VendorList";
+import { useSelector } from "react-redux";
+
+import { toast } from "react-toastify";
 
 const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
   const handleCreateVendorModal = () => {
-    setIsOpen(!isOpen);
+    if (isAuthenticated) {
+      setIsOpen(!isOpen);
+    } else {
+      toast.error("Please log in with your Google account to create vendor.");
+    }
   };
   return (
     <div className=" text-gray-600 body-font ">

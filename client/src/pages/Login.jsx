@@ -5,6 +5,7 @@ import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setIsAuthenticated, setLoginData } from "../slices/authSlice";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -12,30 +13,32 @@ const Login = () => {
   const dispatch = useDispatch();
   const handleGoogleLogin = async () => {
     try {
+      toast.loading("Loading..");
       const result = await signInWithPopup(auth, googleProvider);
-
-      console.log(result);
 
       if (result.user.accessToken) {
         const { email, uid } = result.user;
-        const response = await axios.post(
+        const { data } = await axios.post(
           "/api/auth/google-login",
           { email, uid },
           {
             headers: {
               "Content-Type": "application/json",
             },
-            withCredentials: true,
           }
         );
-        if (response.status) {
+        if (data.success) {
+          toast.dismiss();
+          toast.success(data.message);
           dispatch(setLoginData(result.user));
           dispatch(setIsAuthenticated(true));
           navigate("/");
         }
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error:", error);
+      toast.dismiss();
+      toast.error(error.response.data.message || "An error occurred.");
     }
   };
 
