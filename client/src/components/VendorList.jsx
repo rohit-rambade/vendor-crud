@@ -80,7 +80,7 @@ const VendorList = () => {
               <th scope="col" className="px-6 py-3">
                 Bank Name
               </th>
-              <th scope="col" className="px-6 py-3 flex">
+              <th scope="col" className="px-6 py-3">
                 Actions
               </th>
             </tr>
@@ -109,7 +109,7 @@ const VendorList = () => {
                   <td className="px-6 py-4 border-b border-gray-200">
                     {vendor.bankName}
                   </td>
-                  <td className="px-6 py-4 border-b border-gray-200 space-y-0 md:space-y-0 md:space-x-2 flex flex-row md:flex-row">
+                  <td className="px-6 py-4 border-b border-gray-200 space-x-2  md:space-y-0 md:space-x-2 flex flex-row md:flex-row">
                     <button
                       onClick={() => handleEdit(vendor._id)}
                       className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex justify-center items-center space-x-2"
