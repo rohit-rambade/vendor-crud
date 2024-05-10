@@ -5,6 +5,7 @@ const initialState = {
   isOpen: false,
   isEdit: false,
   editableVendor: null,
+  deletePopup: false,
 };
 
 export const vendorSlice = createSlice({
@@ -24,9 +25,18 @@ export const vendorSlice = createSlice({
       console.log("in redux i got", action.payload);
       state.editableVendor = action.payload;
     },
+    setDeletePopup(state, action) {
+      state.deletePopup = action.payload;
+      console.log("in redux", state.deletePopup);
+    },
   },
 });
 
-export const { setVendors, setHandleModal, setIsEdit, setEditableVendor } =
-  vendorSlice.actions;
+export const {
+  setVendors,
+  setHandleModal,
+  setIsEdit,
+  setEditableVendor,
+  setDeletePopup,
+} = vendorSlice.actions;
 export default vendorSlice.reducer;

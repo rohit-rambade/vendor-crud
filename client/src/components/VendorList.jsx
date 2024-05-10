@@ -7,19 +7,21 @@ import { FaArrowLeft } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import {
+  setDeletePopup,
   setEditableVendor,
   setHandleModal,
   setIsEdit,
   setVendors,
 } from "../slices/vendorSlice";
 import { toast } from "react-toastify";
+import Popup from "./Popup";
 
 const VendorList = () => {
   const dispatch = useDispatch();
 
   const { vendors } = useSelector((state) => state.vendor);
 
-  const { isOpen, isEdit } = useSelector((state) => state.vendor);
+  const { isOpen, isEdit, deletePopup } = useSelector((state) => state.vendor);
   const { isAuthenticated } = useSelector((state) => state.auth);
   console.log(vendors?.length);
   const [currentPage, setCurrentPage] = useState(1);
@@ -66,25 +68,27 @@ const VendorList = () => {
     console.log(id);
   };
 
-  const handleDelete = async (id) => {
-    if (!isAuthenticated) {
-      toast.error("Please log in with your Google account to create vendor.");
-    } else {
-      try {
-        toast.loading("Deleting ...");
-        const { data } = await axios.delete(`api/vendors/${id}`);
+  // const handleDelete = async (id) => {
+  //   if (!isAuthenticated) {
+  //     toast.error("Please log in with your Google account to create vendor.");
+  //   } else {
+  //     try {
+  //       dispatch(setDeletePopup(!deletePopup));
+  //       console.log("in delete", deletePopup);
+  //       // toast.loading("Deleting ...");
+  //       // const { data } = await axios.delete(`api/vendors/${id}`);
 
-        if (data.success) {
-          toast.dismiss();
-          toast.success(data.message);
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        toast.dismiss();
-        toast.error(error.response.data.message || "An error occurred.");
-      }
-    }
-  };
+  //       // if (data.success) {
+  //       //   toast.dismiss();
+  //       //   toast.success(data.message);
+  //       // }
+  //     } catch (error) {
+  //       console.error("Error:", error);
+  //       toast.dismiss();
+  //       toast.error(error.response.data.message || "An error occurred.");
+  //     }
+  //   }
+  // };
   return (
     <div>
       <div className="overflow-x-auto shadow-md sm:rounded-lg">
@@ -137,11 +141,12 @@ const VendorList = () => {
                       <FaEdit /> <span>Edit</span>
                     </button>
                     <button
-                      onClick={() => handleDelete(vendor._id)}
+                      onClick={() => dispatch(setDeletePopup(!deletePopup))}
                       className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex justify-center items-center space-x-2"
                     >
                       <MdDeleteForever /> <span>Delete</span>
                     </button>
+                    <div>{deletePopup && <Popup id={vendor._id} />}</div>
                   </td>
                 </tr>
               ))}
