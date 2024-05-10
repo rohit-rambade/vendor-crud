@@ -12,10 +12,9 @@ import {
 } from "../slices/vendorSlice";
 
 const Home = () => {
-  // const [isOpen, setIsOpen] = useState(false);
-  const { isAuthenticated, user } = useSelector((state) => state.auth);
-  const { isOpen, isEdit } = useSelector((state) => state.vendor);
-  console.log(isEdit);
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isOpen } = useSelector((state) => state.vendor);
+
   const dispatch = useDispatch();
   const handleCreateVendorModal = () => {
     if (isAuthenticated) {

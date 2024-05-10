@@ -22,12 +22,10 @@ export const vendorSlice = createSlice({
       state.isEdit = action.payload;
     },
     setEditableVendor(state, action) {
-      console.log("in redux i got", action.payload);
       state.editableVendor = action.payload;
     },
     setDeletePopup(state, action) {
       state.deletePopup = action.payload;
-      console.log("in redux", state.deletePopup);
     },
   },
 });

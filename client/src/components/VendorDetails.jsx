@@ -43,6 +43,7 @@ const CreateVendor = () => {
     });
   };
 
+  // Create Vendor
   const handleCreateVendor = async (e) => {
     e.preventDefault();
     try {
@@ -67,6 +68,7 @@ const CreateVendor = () => {
     }
   };
 
+  // Uspdate Vendor
   const handleUpdateVendor = async (e) => {
     e.preventDefault();
     try {
@@ -140,6 +142,7 @@ const CreateVendor = () => {
             </button>
           </div>
 
+          {/*  Vendor Details */}
           <form className="p-4 md:p-5">
             <div className="grid gap-4 mb-4 grid-cols-1 md:grid-cols-3">
               <div className="space-y-4">
@@ -148,7 +151,7 @@ const CreateVendor = () => {
                     for="vendorName"
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
-                    Vendor Name <span class="text-red-500">*</span>
+                    Vendor Name <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
@@ -166,7 +169,7 @@ const CreateVendor = () => {
                     for="bankAccountNo"
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
-                    Bank Account Number <span class="text-red-500">*</span>
+                    Bank Account Number <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
@@ -184,7 +187,7 @@ const CreateVendor = () => {
                     for="bankName"
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
-                    Bank Name <span class="text-red-500">*</span>
+                    Bank Name <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
@@ -204,7 +207,7 @@ const CreateVendor = () => {
                     for="addressLine1"
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
-                    Address Line 1 <span class="text-red-500">*</span>
+                    Address Line 1 <span className="text-red-500">*</span>
                   </label>
                   <textarea
                     id="addressLine1"
@@ -221,7 +224,7 @@ const CreateVendor = () => {
                     for="addressLine2"
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
-                    Address Line 2 <span class="text-red-500">*</span>
+                    Address Line 2 <span className="text-red-500">*</span>
                   </label>
                   <textarea
                     id="addressLine2"
@@ -300,7 +303,7 @@ const CreateVendor = () => {
                 className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
                 onClick={handleUpdateVendor}
               >
-                Edit Vendor
+                Update Vendor
               </button>
             ) : (
               <button

@@ -32,9 +32,9 @@ const Popup = ({ id }) => {
   };
   return (
     <div>
-      <div className="fixed inset-0 flex justify-center items-center">
-        <div className="relative p-4 w-full max-w-md max-h-full">
-          <div className="relative bg-white rounded-lg shadow ">
+      <div className="fixed inset-0 flex justify-center items-center ">
+        <div className="relative p-4 w-full max-w-md max-h-full  ">
+          <div className="relative bg-white rounded-lg shadow-2xl ">
             <div className="p-4 md:p-5 text-center">
               <div className="flex justify-center">
                 <CgDanger size={50} color="red" />

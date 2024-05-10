@@ -23,7 +23,7 @@ const VendorList = () => {
 
   const { isOpen, isEdit, deletePopup } = useSelector((state) => state.vendor);
   const { isAuthenticated } = useSelector((state) => state.auth);
-  console.log(vendors?.length);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
@@ -33,7 +33,6 @@ const VendorList = () => {
       `/api/vendors?page=${page}&limit=${limit}`
     );
     dispatch(setVendors(data.vendors));
-    console.log(data);
     setTotalPages(data.totalPages);
   };
 
@@ -59,36 +58,13 @@ const VendorList = () => {
       toast.error("Please log in with your Google account to create vendor.");
     } else {
       const editableVendor = vendors.find((vendor) => vendor._id === id);
-      console.log("got my ediable vendor", editableVendor);
+
       dispatch(setHandleModal(!isOpen));
       dispatch(setIsEdit(true));
       dispatch(setEditableVendor(editableVendor));
     }
-
-    console.log(id);
   };
 
-  // const handleDelete = async (id) => {
-  //   if (!isAuthenticated) {
-  //     toast.error("Please log in with your Google account to create vendor.");
-  //   } else {
-  //     try {
-  //       dispatch(setDeletePopup(!deletePopup));
-  //       console.log("in delete", deletePopup);
-  //       // toast.loading("Deleting ...");
-  //       // const { data } = await axios.delete(`api/vendors/${id}`);
-
-  //       // if (data.success) {
-  //       //   toast.dismiss();
-  //       //   toast.success(data.message);
-  //       // }
-  //     } catch (error) {
-  //       console.error("Error:", error);
-  //       toast.dismiss();
-  //       toast.error(error.response.data.message || "An error occurred.");
-  //     }
-  //   }
-  // };
   return (
     <div>
       <div className="overflow-x-auto shadow-md sm:rounded-lg">
