@@ -56,7 +56,33 @@ const CreateVendor = () => {
         toast.dismiss();
         toast.success(data.message);
         setVendorData(initialState);
-        handleCreateVendorModal();
+        dispatch(setHandleModal(!isOpen));
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast.dismiss();
+      toast.error(error.response.data.message || "An error occurred.");
+    }
+  };
+
+  const handleUpdateVendor = async (e) => {
+    e.preventDefault();
+    try {
+      toast.loading("Edit Vendor");
+      const { data } = await axios.put(
+        `/api/vendors/${editableVendor._id}`,
+        vendorData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (data.success) {
+        toast.dismiss();
+        toast.success(data.message);
+        setVendorData(initialState);
+        dispatch(setHandleModal(!isOpen));
       }
     } catch (error) {
       console.error("Error:", error);
@@ -268,6 +294,7 @@ const CreateVendor = () => {
               <button
                 type="submit"
                 className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                onClick={handleUpdateVendor}
               >
                 Edit Vendor
               </button>

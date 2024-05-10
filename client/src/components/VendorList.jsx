@@ -17,7 +17,7 @@ const VendorList = () => {
 
   const { vendors } = useSelector((state) => state.vendor);
 
-  const { isOpen } = useSelector((state) => state.vendor);
+  const { isOpen, isEdit } = useSelector((state) => state.vendor);
   const { isAuthenticated } = useSelector((state) => state.auth);
   console.log(vendors?.length);
   const [currentPage, setCurrentPage] = useState(1);
@@ -35,7 +35,7 @@ const VendorList = () => {
 
   useEffect(() => {
     getVendors(currentPage, 5);
-  }, [currentPage]);
+  }, [currentPage, isOpen]);
 
   // controls
   const handlePrevPage = () => {
