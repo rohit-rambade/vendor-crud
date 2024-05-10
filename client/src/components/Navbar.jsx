@@ -20,7 +20,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gray-900  ">
+    <nav className="bg-black">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link
           to="/"
@@ -31,14 +31,14 @@ const Navbar = () => {
           </span>
         </Link>
         <div className=" flex items-center ">
-          <div className="relative">
+          <div className="">
             <button
               type="button"
               className="flex text-sm bg-gray-800 rounded-full "
               onClick={() => setIsOpen(!isOpen)}
             >
               {!isAuthenticated ? (
-                <FaRegCircleUser size={30} />
+                <FaRegCircleUser size={30} color="white" />
               ) : (
                 <img
                   className=" w-8 h-8 rounded-full"
@@ -51,21 +51,25 @@ const Navbar = () => {
             <div
               className={`${
                 isOpen ? "block" : "hidden"
-              } absolute right-0 my-4 text-base list-none bg-white  divide-gray-100 rounded-lg shadow`}
+              } absolute right-0 md:right-5 my-4 text-base list-none bg-white  divide-gray-100 rounded-lg shadow`}
             >
-              <ul className="py-2">
+              <ul className="py-2 w-40 flex flex-col justify-center items-center">
                 {!isAuthenticated ? (
                   <li>
                     <Link
                       to="/login"
                       className="block px-4 py-2 text-sm text-gray-700"
+                      onClick={() => setIsOpen(!isOpen)}
                     >
                       Login
                     </Link>
                   </li>
                 ) : (
                   <>
-                    <li className="block px-4 py-2 text-sm text-gray-700">
+                    <li
+                      className="block px-4 py-2 text-sm text-gray-700"
+                      onClick={() => setIsOpen(!isOpen)}
+                    >
                       Welcome {user.displayName}
                     </li>
                     <li>

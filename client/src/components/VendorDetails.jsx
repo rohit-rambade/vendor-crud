@@ -108,7 +108,7 @@ const CreateVendor = () => {
     <div
       className={`${
         isOpen ? "block" : "hidden"
-      }  overflow-y-auto justify-center  items-center`}
+      }  overflow-y-auto justify-center  items-center font-poppins`}
     >
       <div className="p-4 ">
         <div className=" bg-white rounded-lg shadow ">
@@ -119,7 +119,7 @@ const CreateVendor = () => {
             <button
               onClick={handleModalClose}
               type="button"
-              className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  "
+              className="text-black border border-black bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  "
             >
               <svg
                 className="w-3 h-3"
@@ -142,13 +142,13 @@ const CreateVendor = () => {
 
           <form className="p-4 md:p-5">
             <div className="grid gap-4 mb-4 grid-cols-1 md:grid-cols-3">
-              <div>
+              <div className="space-y-4">
                 <div className="">
                   <label
                     for="vendorName"
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
-                    Vendor Name
+                    Vendor Name <span class="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
@@ -166,7 +166,7 @@ const CreateVendor = () => {
                     for="bankAccountNo"
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
-                    Bank Account Number
+                    Bank Account Number <span class="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
@@ -184,7 +184,7 @@ const CreateVendor = () => {
                     for="bankName"
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
-                    Bank Name
+                    Bank Name <span class="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
@@ -198,13 +198,13 @@ const CreateVendor = () => {
                   />
                 </div>
               </div>
-              <div>
+              <div className="space-y-4">
                 <div className="">
                   <label
                     for="addressLine1"
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
-                    Address Line 1
+                    Address Line 1 <span class="text-red-500">*</span>
                   </label>
                   <textarea
                     id="addressLine1"
@@ -221,7 +221,7 @@ const CreateVendor = () => {
                     for="addressLine2"
                     className="block mb-2 text-sm font-medium text-gray-900 "
                   >
-                    Address Line 2
+                    Address Line 2 <span class="text-red-500">*</span>
                   </label>
                   <textarea
                     id="addressLine2"
@@ -234,7 +234,7 @@ const CreateVendor = () => {
                   ></textarea>
                 </div>
               </div>
-              <div>
+              <div className="space-y-4">
                 <div className="flex flex-col ">
                   <div className="">
                     <label

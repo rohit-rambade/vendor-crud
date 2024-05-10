@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
+import { FaArrowRight } from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
 
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -87,7 +89,7 @@ const VendorList = () => {
     <div>
       <div className="overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left rtl:text-right md:text-center">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-400">
+          <thead className="text-sm text-gray-700 uppercase bg-gray-400">
             <tr className="bg-gray-100">
               <th scope="col" className="px-6 py-3">
                 Vendor Name
@@ -127,7 +129,7 @@ const VendorList = () => {
                   <td className="px-6 py-4 border-b border-gray-200">
                     {vendor.bankName}
                   </td>
-                  <td className="px-6 py-4 border-b border-gray-200 space-y-2 md:space-y-0 md:space-x-2 flex flex-col md:flex-row">
+                  <td className="px-6 py-4 border-b border-gray-200 space-y-0 md:space-y-0 md:space-x-2 flex flex-row md:flex-row">
                     <button
                       onClick={() => handleEdit(vendor._id)}
                       className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex justify-center items-center space-x-2"
@@ -151,19 +153,20 @@ const VendorList = () => {
         <button
           onClick={handlePrevPage}
           disabled={currentPage === 1}
-          className="bg-gray-300 px-4 py-2 rounded mr-2"
+          className="bg-gray-300 px-4 py-2 rounded  flex space-x-2 justify-center items-center"
         >
-          Prev Page
+          <FaArrowLeft />
+          <span>Prev</span>
         </button>
         <span>
-          Page {currentPage} of {totalPages}
+          Page {currentPage} / {totalPages}
         </span>
         <button
           onClick={handleNextPage}
           disabled={currentPage === totalPages}
-          className="bg-gray-300 px-4 py-2 rounded ml-2"
+          className="bg-gray-300 px-4 py-2 rounded  flex space-x-2 justify-center items-center"
         >
-          Next Page
+          <FaArrowRight /> <span>Next</span>
         </button>
       </div>
     </div>

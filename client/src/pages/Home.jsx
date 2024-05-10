@@ -2,6 +2,7 @@ import React from "react";
 import VendorDetails from "../components/VendorDetails";
 import VendorList from "../components/VendorList";
 import { useDispatch, useSelector } from "react-redux";
+import { IoAdd } from "react-icons/io5";
 
 import { toast } from "react-toastify";
 import {
@@ -30,15 +31,16 @@ const Home = () => {
       <div className="container p-5 mx-auto">
         <div className=" flex justify-start md:justify-end items-center sm:flex-row sm:items-center  mx-auto">
           <button
-            className="flex-shrink-0 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
+            className="flex-shrink-0 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg flex justify-center items-center "
             onClick={handleCreateVendorModal}
           >
-            {isEdit ? "Edit" : "Add"}
+            <IoAdd size={25} color="white" />
+            Add
           </button>
         </div>
       </div>
 
-      <div className="absolute  w-full">
+      <div className="absolute  top-14  w-full">
         <VendorDetails
           handleCreateVendorModal={handleCreateVendorModal}
           isOpen={isOpen}
