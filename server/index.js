@@ -8,6 +8,7 @@ dotenv.config({
 // routes
 
 import userRoute from "./routes/user.auth.routes.js";
+import vendorRoute from "./routes/vendor.routes.js";
 
 const app = express();
 
@@ -22,6 +23,10 @@ connectDB();
 //routes
 
 app.use("/api/auth", userRoute);
+
+//vendor routes
+
+app.use("/api/vendors", vendorRoute);
 
 // server connection
 app.listen(PORT, () => {
