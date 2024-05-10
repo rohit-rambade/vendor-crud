@@ -63,6 +63,26 @@ const VendorList = () => {
 
     console.log(id);
   };
+
+  const handleDelete = async (id) => {
+    if (!isAuthenticated) {
+      toast.error("Please log in with your Google account to create vendor.");
+    } else {
+      try {
+        toast.loading("Deleting ...");
+        const { data } = await axios.delete(`api/vendors/${id}`);
+
+        if (data.success) {
+          toast.dismiss();
+          toast.success(data.message);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        toast.dismiss();
+        toast.error(error.response.data.message || "An error occurred.");
+      }
+    }
+  };
   return (
     <div>
       <div className="overflow-x-auto shadow-md sm:rounded-lg">

@@ -59,9 +59,11 @@ const CreateVendor = () => {
         dispatch(setHandleModal(!isOpen));
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error:", error.response.data.errors);
       toast.dismiss();
-      toast.error(error.response.data.message || "An error occurred.");
+      error.response.data.errors.map((error) => {
+        toast.error(error.msg);
+      });
     }
   };
 
@@ -85,9 +87,11 @@ const CreateVendor = () => {
         dispatch(setHandleModal(!isOpen));
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error:", error.response.data.errors);
       toast.dismiss();
-      toast.error(error.response.data.message || "An error occurred.");
+      error.response.data.errors.map((error) => {
+        toast.error(error.msg);
+      });
     }
   };
 
