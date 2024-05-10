@@ -1,8 +1,22 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+import { useDispatch, useSelector } from "react-redux";
+import { setIsAuthenticated, setLoginData } from "../slices/authSlice";
+
+import { FaRegCircleUser } from "react-icons/fa6";
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  console.log(user);
+  const handleLogout = () => {
+    dispatch(setLoginData(null));
+    dispatch(setIsAuthenticated(false));
+    window.location.reload();
+  };
+
   return (
     <nav className="bg-gray-900  ">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -21,7 +35,15 @@ const Navbar = () => {
               className="flex text-sm bg-gray-800 rounded-full "
               onClick={() => setIsOpen(!isOpen)}
             >
-              <img className=" w-8 h-8 rounded-full" src="" alt="user photo" />
+              {!isAuthenticated ? (
+                <FaRegCircleUser size={30} />
+              ) : (
+                <img
+                  className=" w-8 h-8 rounded-full"
+                  src={user?.photoURL}
+                  alt={user?.displayName}
+                />
+              )}
             </button>
             {/* Dropdown menu */}
             <div
@@ -30,19 +52,30 @@ const Navbar = () => {
               } absolute right-0 my-4 text-base list-none bg-white  divide-gray-100 rounded-lg shadow`}
             >
               <ul className="py-2">
-                <li>
-                  <Link
-                    to="/login"
-                    className="block px-4 py-2 text-sm text-gray-700"
-                  >
-                    Login
-                  </Link>
-                </li>
-                <li>
-                  <button className="block px-4 py-2 text-sm text-gray-700">
-                    Logout
-                  </button>
-                </li>
+                {!isAuthenticated ? (
+                  <li>
+                    <Link
+                      to="/login"
+                      className="block px-4 py-2 text-sm text-gray-700"
+                    >
+                      Login
+                    </Link>
+                  </li>
+                ) : (
+                  <>
+                    <li className="block px-4 py-2 text-sm text-gray-700">
+                      Welcome {user.displayName}
+                    </li>
+                    <li>
+                      <button
+                        className="block px-4 py-2 text-sm text-gray-700"
+                        onClick={() => handleLogout()}
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  </>
+                )}
               </ul>
             </div>
           </div>

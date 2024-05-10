@@ -1,17 +1,38 @@
 import React from "react";
+import axios from "axios";
 import { auth, googleProvider } from "../config/firebase";
 import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setIsAuthenticated, setLoginData } from "../slices/authSlice";
 
 const Login = () => {
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
   const handleGoogleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
 
       console.log(result);
+
       if (result.user.accessToken) {
-        navigate("/");
+        const { email, uid } = result.user;
+        const response = await axios.post(
+          "/api/auth/google-login",
+          { email, uid },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            withCredentials: true,
+          }
+        );
+        if (response.status) {
+          dispatch(setLoginData(result.user));
+          dispatch(setIsAuthenticated(true));
+          navigate("/");
+        }
       }
     } catch (error) {
       console.log(error);

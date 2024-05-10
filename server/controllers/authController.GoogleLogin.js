@@ -19,6 +19,11 @@ const googleLogin = async (req, res) => {
         success: true,
         message: "Login successful!",
       });
+    } else {
+      res.status(200).json({
+        success: true,
+        message: "Login successful!",
+      });
     }
   } catch (error) {
     console.error(error);
