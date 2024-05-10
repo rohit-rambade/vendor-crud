@@ -2,6 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   vendors: null,
+  isOpen: false,
+  isEdit: false,
+  editableVendor: null,
 };
 
 export const vendorSlice = createSlice({
@@ -10,10 +13,20 @@ export const vendorSlice = createSlice({
   reducers: {
     setVendors(state, action) {
       state.vendors = action.payload;
-      console.log(state.vendors);
+    },
+    setHandleModal(state, action) {
+      state.isOpen = action.payload;
+    },
+    setIsEdit(state, action) {
+      state.isEdit = action.payload;
+    },
+    setEditableVendor(state, action) {
+      console.log("in redux i got", action.payload);
+      state.editableVendor = action.payload;
     },
   },
 });
 
-export const { setVendors } = vendorSlice.actions;
+export const { setVendors, setHandleModal, setIsEdit, setEditableVendor } =
+  vendorSlice.actions;
 export default vendorSlice.reducer;

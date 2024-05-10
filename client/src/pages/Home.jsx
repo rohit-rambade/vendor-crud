@@ -1,16 +1,26 @@
-import React, { useState } from "react";
-import CreateVendor from "../components/CreateVendor";
+import React from "react";
+import VendorDetails from "../components/VendorDetails";
 import VendorList from "../components/VendorList";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { toast } from "react-toastify";
+import {
+  setEditableVendor,
+  setHandleModal,
+  setIsEdit,
+} from "../slices/vendorSlice";
 
 const Home = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
   const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const { isOpen, isEdit } = useSelector((state) => state.vendor);
+  console.log(isEdit);
+  const dispatch = useDispatch();
   const handleCreateVendorModal = () => {
     if (isAuthenticated) {
-      setIsOpen(!isOpen);
+      dispatch(setHandleModal(!isOpen));
+      dispatch(setIsEdit(false));
+      dispatch(setEditableVendor());
     } else {
       toast.error("Please log in with your Google account to create vendor.");
     }
@@ -23,20 +33,23 @@ const Home = () => {
             className="flex-shrink-0 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
             onClick={handleCreateVendorModal}
           >
-            Create
+            {isEdit ? "Edit" : "Add"}
           </button>
         </div>
       </div>
 
       <div className="absolute  w-full">
-        <CreateVendor
+        <VendorDetails
           handleCreateVendorModal={handleCreateVendorModal}
           isOpen={isOpen}
         />
       </div>
 
       {/* Vendor List */}
-      <VendorList />
+      <VendorList
+        handleCreateVendorModal={handleCreateVendorModal}
+        isOpen={isOpen}
+      />
     </div>
   );
 };

@@ -4,13 +4,22 @@ import { MdDeleteForever } from "react-icons/md";
 
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { setVendors } from "../slices/vendorSlice";
+import {
+  setEditableVendor,
+  setHandleModal,
+  setIsEdit,
+  setVendors,
+} from "../slices/vendorSlice";
+import { toast } from "react-toastify";
 
 const VendorList = () => {
   const dispatch = useDispatch();
 
   const { vendors } = useSelector((state) => state.vendor);
-  console.log(vendors.length);
+
+  const { isOpen } = useSelector((state) => state.vendor);
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  console.log(vendors?.length);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
@@ -40,6 +49,20 @@ const VendorList = () => {
       setCurrentPage(currentPage + 1);
     }
   };
+
+  const handleEdit = (id) => {
+    if (!isAuthenticated) {
+      toast.error("Please log in with your Google account to create vendor.");
+    } else {
+      const editableVendor = vendors.find((vendor) => vendor._id === id);
+      console.log("got my ediable vendor", editableVendor);
+      dispatch(setHandleModal(!isOpen));
+      dispatch(setIsEdit(true));
+      dispatch(setEditableVendor(editableVendor));
+    }
+
+    console.log(id);
+  };
   return (
     <div>
       <div className="overflow-x-auto shadow-md sm:rounded-lg">
@@ -60,7 +83,7 @@ const VendorList = () => {
               </th>
             </tr>
           </thead>
-          {vendors.length === 0 ? (
+          {vendors?.length === 0 ? (
             <tbody>
               <tr className="text-2xl text-center ">
                 <td colSpan="4" className="p-5">

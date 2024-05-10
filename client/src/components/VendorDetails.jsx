@@ -1,7 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setEditableVendor,
+  setHandleModal,
+  setIsEdit,
+} from "../slices/vendorSlice";
 
 const initialState = {
   vendorName: "",
@@ -14,8 +20,21 @@ const initialState = {
   zipCode: "",
 };
 
-const CreateVendor = ({ handleCreateVendorModal, isOpen }) => {
+const CreateVendor = () => {
   const [vendorData, setVendorData] = useState(initialState);
+  const { isEdit, isOpen, editableVendor } = useSelector(
+    (state) => state.vendor
+  );
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (editableVendor) {
+      setVendorData(editableVendor);
+    } else {
+      setVendorData(initialState);
+    }
+  }, [editableVendor]);
 
   const handleChange = (e) => {
     setVendorData({
@@ -45,6 +64,16 @@ const CreateVendor = ({ handleCreateVendorModal, isOpen }) => {
       toast.error(error.response.data.message || "An error occurred.");
     }
   };
+
+  const handleModalClose = () => {
+    if (isEdit) {
+      dispatch(setIsEdit(!isEdit));
+      dispatch(setHandleModal(!isOpen));
+    } else {
+      dispatch(setHandleModal(!isOpen));
+      dispatch(setEditableVendor());
+    }
+  };
   return (
     <div
       className={`${
@@ -55,10 +84,10 @@ const CreateVendor = ({ handleCreateVendorModal, isOpen }) => {
         <div className=" bg-white rounded-lg shadow ">
           <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t ">
             <h3 className="text-lg font-semibold text-gray-900 ">
-              Details Of Vendor
+              {isEdit ? "Edit" : "Add"} Details
             </h3>
             <button
-              onClick={() => handleCreateVendorModal()}
+              onClick={handleModalClose}
               type="button"
               className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  "
             >
@@ -81,7 +110,7 @@ const CreateVendor = ({ handleCreateVendorModal, isOpen }) => {
             </button>
           </div>
 
-          <form className="p-4 md:p-5" onSubmit={handleCreateVendor}>
+          <form className="p-4 md:p-5">
             <div className="grid gap-4 mb-4 grid-cols-1 md:grid-cols-3">
               <div>
                 <div className="">
@@ -235,12 +264,22 @@ const CreateVendor = ({ handleCreateVendorModal, isOpen }) => {
               </div>
             </div>
 
-            <button
-              type="submit"
-              className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
-            >
-              Add Vendor
-            </button>
+            {isEdit ? (
+              <button
+                type="submit"
+                className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+              >
+                Edit Vendor
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                onClick={handleCreateVendor}
+              >
+                Add Vendor
+              </button>
+            )}
           </form>
         </div>
       </div>
