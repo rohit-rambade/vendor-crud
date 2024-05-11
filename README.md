@@ -3,8 +3,9 @@
 
 This web application manages vendor information, offering features such as Google authentication, CRUD operations for vendors, pagination, and responsive UI design. 
 
-## Demo
+## [Live](https://vendor-crud-omega.vercel.app/)
 
+## Demo 
 https://github.com/rohit-rambade/vendor-crud/assets/86614477/b43c3b43-8a43-4a13-9ee0-9d90b2e945c0
 
 
