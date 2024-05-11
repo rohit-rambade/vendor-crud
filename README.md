@@ -3,6 +3,12 @@
 
 This web application manages vendor information, offering features such as Google authentication, CRUD operations for vendors, pagination, and responsive UI design. 
 
+## Demo
+
+https://github.com/rohit-rambade/vendor-crud/assets/86614477/b43c3b43-8a43-4a13-9ee0-9d90b2e945c0
+
+
+
 ## Technologies Used
 
 - Node.js
@@ -22,7 +28,7 @@ This web application manages vendor information, offering features such as Googl
    - Vendor Name*
    - Account No*
    - Bank Name* 
-   - Address Line 1
+   - Address Line 1*
    - Address Line 2*
    - City
    - Country
